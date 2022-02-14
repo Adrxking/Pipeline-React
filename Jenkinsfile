@@ -20,6 +20,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh "chmod +x -R ${env.WORKSPACE}/services/scripts"
                 sh './services/scripts/test.sh'
             }
         }
