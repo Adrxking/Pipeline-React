@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 set -x
+cd app/react
 npm run build
 set +x
 
