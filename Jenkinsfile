@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:alpine3.14'
-            args '-p 9010:3000 -v /../app/react:/var/www/html'
+            args '-p 9010:3000 -v ./app/react:/var/www/html'
         }
     }
     environment {
@@ -16,12 +16,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '../scripts/test.sh'
+                sh './services/scripts/test.sh'
             }
         }
         stage('Deliver') {
             steps {
-                sh '../scripts/deploy.sh'
+                sh './services/scripts/deploy.sh'
             }
         }
 
