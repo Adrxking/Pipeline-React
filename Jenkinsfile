@@ -2,7 +2,8 @@ pipeline {
     agent {
         docker {
             image 'node'
-            args '-p 9010:3000'
+            args '-p 9010:3000 -u root:root'
+            reuseNode true
         }
     }
     environment {
