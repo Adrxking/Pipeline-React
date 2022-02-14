@@ -11,8 +11,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir("${env.WORKSPACE}/app/react"){
-                    echo "${env.WORKSPACE}/app/react"
+                dir("app/react"){
+                    sh 'pwd'
                     sh 'npm install'
                 }
             }
