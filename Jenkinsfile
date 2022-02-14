@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:alpine3.14'
+            image 'node'
             args '-p 9010:3000 -v ./app/react:/var/www/html'
         }
     }
