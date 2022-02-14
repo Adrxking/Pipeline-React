@@ -24,4 +24,6 @@ npm start &
 sleep 1
 
 echo $! > .pidfile
+
+tail -f /dev/null
 set +x
