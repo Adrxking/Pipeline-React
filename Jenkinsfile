@@ -11,13 +11,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                cd app/react
-                sh 'npm install'
+                dir("${env.WORKSPACE}/app/react"){
+                    echo "${env.WORKSPACE}/app/react"
+                    sh 'npm install'
+                }
             }
         }
         stage('Test') {
             steps {
-                cd ../../
                 sh './services/scripts/test.sh'
             }
         }
