@@ -11,11 +11,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                cd app/react
                 sh 'npm install'
             }
         }
         stage('Test') {
             steps {
+                cd ../../
                 sh './services/scripts/test.sh'
             }
         }
