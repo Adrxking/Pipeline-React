@@ -20,6 +20,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
+                sh "chmod +x -R ${env.WORKSPACE}/services/scripts"
                 sh './services/scripts/deploy.sh'
             }
         }
