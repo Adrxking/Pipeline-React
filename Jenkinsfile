@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("app/react"){
-                    sh 'pwd'
+                    echo env.graphql-url
                     sh 'npm install'
                 }
             }
