@@ -11,10 +11,10 @@ pipeline {
     }
     stages {
         stage('Build') {
+            environment {
+                GRAPHQLURL = credentials("GRAPHQL-URL")
+            }
             steps {
-                environment {
-                    GRAPHQLURL = credentials("GRAPHQL-URL")
-                }
                 dir("app/react"){
                     sh 'echo "la url es $GRAPHQLURL"'
                     sh 'npm install'
