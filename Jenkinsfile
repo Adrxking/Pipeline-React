@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:16'
+            image 'node:16.14.0'
             args '-p 9010:3000 -u root:root'
             reuseNode true
         }
