@@ -5,6 +5,7 @@ import Profile from "./pages/Profile/Profile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./pages/Signup/Signup";
 import Signin from "./pages/Signin/Signin";
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route strict exact path="/signup" component={Signup} />
         <Route strict exact path="/signin" component={Signin} />
         <Route strict exact path="/profile/:id" component={Profile} />
+        <Route strict exact path="/" component={Home} />
       </Switch>
     </div>
   );
