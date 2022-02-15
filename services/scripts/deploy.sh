@@ -20,6 +20,7 @@
 
 set -x
 cd app/react
+npm run build
 npm start &
 sleep 1
 
