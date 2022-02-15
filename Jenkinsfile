@@ -22,6 +22,8 @@ pipeline {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}/services/scripts"
                 sh './services/scripts/deploy.sh'
+                input message: 'Matar el contenedor? (Click "Proceed" para aceptar)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
 
