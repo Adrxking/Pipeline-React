@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:16.14.0'
-            args '-p 9010:3000 -u root:root'
+            args '-p 9010:3000 -u root:root --name graphql-prisma-react'
             reuseNode true
         }
     }
@@ -11,12 +11,8 @@ pipeline {
     }
     stages {
         stage('Build') {
-            environment {
-                GRAPHQLURL = credentials("GRAPHQL-URL")
-            }
             steps {
                 dir("app/react"){
-                    sh 'echo "la url es $GRAPHQLURL"'
                     sh 'npm install'
                 }
             }
@@ -25,8 +21,6 @@ pipeline {
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}/services/scripts"
                 sh './services/scripts/deploy.sh'
-                input message: 'Matar el contenedor? (Click "Proceed" para aceptar)'
-                sh './jenkins/scripts/kill.sh'
             }
         }
 

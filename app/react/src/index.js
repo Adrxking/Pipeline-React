@@ -9,7 +9,7 @@ import { setContext } from "@apollo/client/link/context"
 
 // HTTP uri
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "http://178.18.241.48:4000/graphql",
 })
 
 // Set headers token
