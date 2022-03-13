@@ -30,7 +30,7 @@ mutation CreatePost($title: String!, $content: String!){
 export default function AddPostModal() {
   const [show, setShow] = useState(false);
 
-  const [ createPost, { data, loading } ] = useMutation(CREATE_POST)
+  const [ createPost, { data } ] = useMutation(CREATE_POST)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

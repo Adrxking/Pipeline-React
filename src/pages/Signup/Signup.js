@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client"
 
+import { useHistory } from "react-router-dom";
+
 const SIGNUP = gql`
   mutation Signup($email: String!, $password: String!, $bio: String!, $name: String!) {
     signup(credentials: { password: $password, email: $email },
@@ -18,7 +20,13 @@ const SIGNUP = gql`
 `
 export default function Signup() {
 
-  const [signup, { data, loading }] = useMutation(SIGNUP)
+  const history = useHistory();
+  
+  const homePage = () => {
+      history.push("/")
+  }
+
+  const [signup, { data }] = useMutation(SIGNUP)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -96,6 +104,9 @@ export default function Signup() {
         {error && <p>{error}</p>}
         <Button onClick={handleClick}>Signup</Button>
       </Form>
+      <button className="btn btn-success"
+          onClick={homePage}>Volver al HOME
+      </button>
     </div>
   );
 }

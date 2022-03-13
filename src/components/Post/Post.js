@@ -39,8 +39,8 @@ export default function Post({
 }) {
 
   // Obtenemos la respuesta de la mutacion, publishPost es la funcion
-  const [publishPost, {data, loading}] = useMutation(PUBLISH_POST)
-  const [unpublishPost, {data: unpublishData, loading: unpublishLoading}] = useMutation(UNPUBLISH_POST)
+  const [publishPost] = useMutation(PUBLISH_POST)
+  const [unpublishPost] = useMutation(UNPUBLISH_POST)
 
   const formatedDate = new Date(Number(date));
   return (

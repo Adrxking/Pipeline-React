@@ -4,6 +4,8 @@ import { Form } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
 import { gql, useMutation } from "@apollo/client"
 
+import { useHistory } from "react-router-dom";
+
 const SIGNIN = gql`
   mutation Signin($email: String!, $password: String!) {
     signin(credentials: {
@@ -20,7 +22,13 @@ const SIGNIN = gql`
 
 export default function Signin() {
 
-  const [signin, { data, loading }] = useMutation(SIGNIN)
+  const history = useHistory();
+  
+  const homePage = () => {
+      history.push("/")
+  }
+
+  const [signin, { data }] = useMutation(SIGNIN)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,6 +85,9 @@ export default function Signin() {
         {error && <p>{error}</p>}
         <Button onClick={handleClick}>Signin</Button>
       </Form>
+      <button className="btn btn-success"
+          onClick={homePage}>Volver al HOME
+      </button>
     </div>
   );
 }
