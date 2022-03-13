@@ -19,7 +19,7 @@ export default function Home() {
   return <div>
       <h1>Queremos terminar el ciclo !</h1>
       <button className="btn btn-success"
-          onClick={postPage}>Visitar todos los POSTS
+          onClick={postPage}>Visitar todos los POSTS!!!!!!!
       </button>
       <button className="btn btn-light"
           onClick={signInPage}>Iniciar Sesión

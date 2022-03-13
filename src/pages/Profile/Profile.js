@@ -2,7 +2,8 @@ import React from "react";
 import { useParams } from "react-router";
 import AddPostModal from "../../components/AddPostModal/AddPostModal";
 import Post from "../../components/Post/Post";
-import { gql, useQuery } from "@apollo/client"
+import { gql, useQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 const GET_PROFILE = gql`
   query Profile($userId: ID!) {
@@ -26,6 +27,12 @@ const GET_PROFILE = gql`
 `
 
 export default function Profile() {
+
+  const history = useHistory();
+
+  const homePage = () => {
+    history.push("/")
+  }
   // Obtener el parametro id del enlace
   const { id } = useParams();
 
@@ -35,13 +42,13 @@ export default function Profile() {
     }
   });
 
-    // Devolver el error si existe
-    if(error) return <div>Error</div>
-  
-    // Devolver pagina de cargando mientras cargan los datos
-    if(loading) return <div>Cargando</div>
+  // Devolver el error si existe
+  if (error) return <div>Error</div>
 
-    const { profile } = data
+  // Devolver pagina de cargando mientras cargan los datos
+  if (loading) return <div>Cargando</div>
+
+  const { profile } = data
 
 
   return (
@@ -61,18 +68,21 @@ export default function Profile() {
       </div>
       <div>
         {profile.user.posts.map(post => {
-              return <Post 
-              key={post.id}
-              title={post.title} 
-              content={post.content} 
-              date={post.createdAt} 
-              id={post.id} 
-              user={profile.user.name}
-              published={post.published}
-              isMyProfile={profile.isMyProfile}
-            />
+          return <Post
+            key={post.id}
+            title={post.title}
+            content={post.content}
+            date={post.createdAt}
+            id={post.id}
+            user={profile.user.name}
+            published={post.published}
+            isMyProfile={profile.isMyProfile}
+          />
         })}
       </div>
+      <button className="btn btn-warning"
+        onClick={homePage}>Volver
+      </button>
     </div>
   );
 }
