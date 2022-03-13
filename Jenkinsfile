@@ -1,36 +1,35 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:16.14.0'
-            args '-p 9010:3000 -u root:root --name graphql-prisma-react'
-            reuseNode true
-        }
+node {
+    def commit_id
+    def previous_id
+    stage('Preparacion') {
+        checkout scm
+        // Save actual id commit on file
+        sh "git rev-parse --short HEAD > .git/commit-id"
+        // Read actual id commit
+        commit_id = readFile('.git/commit-id').trim()
+        // Check if previous id commit exists
+        sh "if (test ! -f .git/previous-id); then echo '' > .git/previous-id; fi"
+        // Read previous id commit
+        previous_id = readFile('.git/previous-id').trim()
     }
-    environment {
-        CI = 'true'
+    stage('Build y Push a DockerHub') {
+        // Build and push the image
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            def app = docker.build("adrxking/docker-react:${commit_id}", '.').push()
+        }
+        // Save previous id commit on file
+        sh "echo ${commit_id} > .git/previous-id"
+        // Delete image
+        sh "docker rmi adrxking/docker-react:${commit_id}"
     }
-    stages {
-        stage('Build') {
-            steps {
-                dir("app/react"){
-                    sh 'npm install'
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}/services/scripts"
-                sh './services/scripts/deploy.sh'
-            }
-        }
-
-    }
-    post {
-        success { 
-            slackSend message: "SUCCESS - Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-        }
-        failure {
-            slackSend message: "ERROR - Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-        }
-    }
+    stage('Correr contenedor') {
+        // save image to constraint
+        def cont = docker.image("adrxking/docker-react:${commit_id}")
+        // Download image
+        cont.pull()
+        // Delete container if exists with same name
+        sh "docker stop graphql-prisma-react || true && docker rm graphql-prisma-react || true"
+        // Run container
+        sh "docker run -d --restart always -p 5434:80 -u root:root --name graphql-prisma-react adrxking/docker-react:${commit_id}"
+    } 
 }
