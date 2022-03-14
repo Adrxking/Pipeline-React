@@ -16,6 +16,14 @@ export default function Home() {
         history.push("/signup")
     }
 
+    const perfilIona = () => {
+        history.push("/profile/2")
+    }
+
+    const perfilAdrian = () => {
+        history.push("/profile/3")
+    }
+
     return <div>
         <h1>**Aplicación usando REACT y GRAPHQL**</h1>
         <button className="btn btn-success"
@@ -26,6 +34,12 @@ export default function Home() {
         </button>
         <button className="btn btn-info"
             onClick={signUpPage}>Regístrate
+        </button>
+        <button className="btn btn-info"
+            onClick={perfilIona}>Perfil Iona
+        </button>
+        <button className="btn btn-info"
+            onClick={perfilAdrian}>Perfil Adrian
         </button>
     </div>;
 }
