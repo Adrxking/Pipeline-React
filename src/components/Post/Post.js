@@ -49,7 +49,7 @@ export default function Post({
     // Los posts publicados les añadimos un boton de no publicar
     <div
     className="Post"
-    style={published === false ? { backgroundColor: "hotpink" } : { backgroundColor: "cyan" }}
+    style={published === false ? { backgroundColor: "red" } : { backgroundColor: "green" }}
     >
       {isMyProfile && published === false && (
         <p className="Post__publish" onClick={() => {
